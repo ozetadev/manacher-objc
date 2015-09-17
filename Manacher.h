@@ -12,5 +12,5 @@
 {
     
 }
-+(NSString *)longestPalendromeInString:(NSString *)string;
++(NSString *)longestPalindromeInString:(NSString *)string;
 @end

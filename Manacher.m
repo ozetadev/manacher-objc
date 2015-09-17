@@ -11,7 +11,7 @@
 @implementation Manacher
 
 
-+(NSString *)longestPalendromeInString:(NSString *)string {
++(NSString *)longestPalindromeInString:(NSString *)string {
     NSString *toReturn = [Manacher processedString:string];
     toReturn = [self findLargestPalindrome:toReturn];
     
