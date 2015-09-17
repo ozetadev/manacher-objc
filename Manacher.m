@@ -35,16 +35,15 @@
         NSString *comp1 = [string substringWithRange:NSMakeRange(i + (1 + [[p objectAtIndex:i] intValue]), 1)];
         NSString *comp2 = [string substringWithRange:NSMakeRange(i - (1 + [[p objectAtIndex:i] intValue]), 1)];
         
-        // attempt to expand palindrome centered at i
-        while ([comp1 isEqualToString:comp2]) {
+        
+        while ([comp1 isEqualToString:comp2]) { // expand palindrome around i
             [p setObject:[NSNumber  numberWithInt:[[p objectAtIndex:i] intValue] + 1] atIndexedSubscript:i];
             comp1 = [string substringWithRange:NSMakeRange(i + (1 + [[p objectAtIndex:i] intValue]), 1)];
             comp2 = [string substringWithRange:NSMakeRange(i - (1 + [[p objectAtIndex:i] intValue]), 1)];
         }
         
-        // if palindrome centered at i expands past right,
-        // adjust center based on expanded palindrome.
-        if (i + [[p objectAtIndex:i] intValue] > right) {
+
+        if (i + [[p objectAtIndex:i] intValue] > right) { // adjust center if expands beyond right bounds
             center = i;
             right = i + [[p objectAtIndex:i] intValue];
         }
@@ -56,8 +55,8 @@
 +(NSString *)longestPalindrome:(NSString *)string array:(NSArray *)p {
     
     
-    int length = 0;   // length of longest palindromic substring
-    int center = 0;   // center of longest palindromic substring
+    int length = 0;   // length of longest palindrome
+    int center = 0;   // current center index of character used for palindrome
     for (int i = 1; i < p.count-1; i++) {
         if ([[p objectAtIndex:i] intValue] > length) {
             length = [[p objectAtIndex:i] intValue];
@@ -74,9 +73,10 @@
 }
 
 +(NSString *)processedString:(NSString *)string { // preprocess string
-    NSMutableString *mutableString = [NSMutableString stringWithString:@"$#"];
+
+    NSMutableString *mutableString = [NSMutableString stringWithString:@"$#"]; // start string with $# to help with the next step
     
-    for (int i = 0; i < string.length; i++) {
+    for (int i = 0; i < string.length; i++) { // insert # between characters to remove trivality of even/noneven strings
         NSString *next = [string substringWithRange:NSMakeRange(i, 1)];
         [mutableString appendString:next];
         [mutableString appendString:@"#"];
